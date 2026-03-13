@@ -37,6 +37,9 @@ bin/%.o: test/%.c
 lint:
 	$(LINT) -i $(SRCS) $(TEST_SRCS)
 
+checklint:
+	$(LINT) --dry-run -Werror $(SRCS) $(TEST_SRCS)
+
 clean:
 	$(RM) *.o *.so src/*.o bin/* test/*.o test/test_all
 
