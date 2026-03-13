@@ -1,3 +1,5 @@
+[![Check Test](https://github.com/notnotnull/libcds/actions/workflows/check.yml/badge.svg)](https://github.com/notnotnull/libcds/actions/workflows/check.yml) [![Clang Format](https://github.com/notnotnull/libcds/actions/workflows/clang.yml/badge.svg)](https://github.com/notnotnull/libcds/actions/workflows/clang.yml) [![Valgrind](https://github.com/notnotnull/libcds/actions/workflows/valgrind.yml/badge.svg)](https://github.com/notnotnull/libcds/actions/workflows/valgrind.yml)
+
 # LIBC DS
 
 C Data Structures Library
