@@ -47,7 +47,7 @@ debug: all
 
 ##### Testing Targets
 
-test: lib $(TEST)/$(TEST_TARGET)
+test: so $(TEST)/$(TEST_TARGET)
 
 $(TEST)/$(TEST_TARGET): LDLIBS += -L$(LIB) -Wl,-rpath=$(LIB) -lcds -lcheck -lm -lrt -lsubunit -pthread -lcrypto
 $(TEST)/$(TEST_TARGET): CFLAGS += -I$(INCLUDE)
