@@ -1,5 +1,5 @@
 #include <check.h>
-#include "../src/wgraph.h"
+#include "wgraph.h"
 #include "test_utils.h"
 
 /* test weighted graph creation */
@@ -126,27 +126,20 @@ START_TEST(test_calc_wgraph_path_weight)
 	}
 END_TEST
 
-
-static TFun wwgraph_tests[] = {
-	test_create_wgraph,
-	test_insert_wgraph_edge,
-	test_search_wgraph_edge,
-	test_remove_wgraph_edge,
-	test_search_wgraph_node,
-	test_remove_wgraph_node,
-	test_calc_wgraph_path_weight,
-	NULL
-};
-
 Suite *wgraph_st(void)
 {
-	Suite *s = suite_create("DsaWGRAPH");
+	Suite *s = suite_create("Weighted Graph");
 
 	TCase *tc = tcase_create("WGRAPH Core");
-	TFun *curr = wwgraph_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_create_wgraph);
+    tcase_add_test(tc, test_insert_wgraph_edge);
+    tcase_add_test(tc, test_search_wgraph_edge);
+    tcase_add_test(tc, test_remove_wgraph_edge);
+    tcase_add_test(tc, test_search_wgraph_node);
+    tcase_add_test(tc, test_remove_wgraph_node);
+    tcase_add_test(tc, test_calc_wgraph_path_weight);
+
 	suite_add_tcase(s, tc);
 	return s;
 }

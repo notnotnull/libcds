@@ -76,24 +76,16 @@ START_TEST(test_stack_find_at_index)
 	}
 END_TEST
 
-static TFun stack_tests[] = {
-	test_stack_create,
-	test_stack_destroy,
-	test_stack_push,
-	test_stack_pop,
-	test_stack_find_at_index,
-	NULL
-};
-
 Suite *stack_st(void)
 {
-	Suite *s = suite_create("DsaSTACK");
+	Suite *s = suite_create("Stack");
 
 	TCase *tc = tcase_create("STACK Core");
-	TFun *curr = stack_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+	tcase_add_test(tc, test_stack_create);
+	tcase_add_test(tc, test_stack_destroy);
+	tcase_add_test(tc, test_stack_push);
+	tcase_add_test(tc, test_stack_pop);
+	tcase_add_test(tc, test_stack_find_at_index);
 	suite_add_tcase(s, tc);
 	return s;
 }

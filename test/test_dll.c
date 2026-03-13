@@ -179,29 +179,23 @@ START_TEST(test_sort_dll)
 	}
 END_TEST
 
-static TFun dll_tests[] = {
-	test_dll_create,
-	test_dll_destroy,
-	test_dll_insert_front,
-	test_dll_insert_rear,
-	test_dll_insert_at_pos,
-	test_dll_delete_front,
-	test_dll_delete_rear,
-	test_dll_delete_at_pos,
-	test_dll_search,
-	test_sort_dll,
-	NULL
-};
-
 Suite *dll_st(void)
 {
-	Suite *s = suite_create("DsaDLL");
+	Suite *s = suite_create("Doubly Linked List");
 
 	TCase *tc = tcase_create("DLL Core");
-	TFun *curr = dll_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_dll_create);
+	tcase_add_test(tc, test_dll_destroy);
+	tcase_add_test(tc, test_dll_insert_front);
+	tcase_add_test(tc, test_dll_insert_rear);
+	tcase_add_test(tc, test_dll_insert_at_pos);
+	tcase_add_test(tc, test_dll_delete_front);
+	tcase_add_test(tc, test_dll_delete_rear);
+	tcase_add_test(tc, test_dll_delete_at_pos);
+	tcase_add_test(tc, test_dll_search);
+	tcase_add_test(tc, test_sort_dll);
+
 	suite_add_tcase(s, tc);
 	return s;
 }

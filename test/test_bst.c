@@ -71,23 +71,17 @@ START_TEST(test_delete_bst_node)
 	}
 END_TEST
 
-static TFun bst_tests[] = {
-	test_create_bst,
-	test_insert_bst,
-	test_search_bst,
-	test_delete_bst_node,
-	NULL
-};
-
 Suite *bst_st(void)
 {
-	Suite *s = suite_create("DsaBST");
+	Suite *s = suite_create("Binary Search Tree");
 
 	TCase *tc = tcase_create("BST Core");
-	TFun *curr = bst_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_create_bst);
+    tcase_add_test(tc, test_insert_bst);
+    tcase_add_test(tc, test_search_bst);
+    tcase_add_test(tc, test_delete_bst_node);
+
 	suite_add_tcase(s, tc);
 	return s;
 }

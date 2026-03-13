@@ -1,54 +1,75 @@
+TARGET = libcds
+
+CC = gcc
 CFLAGS += -Wextra -Wpedantic -Waggregate-return -Wwrite-strings -Wvla -Wfloat-equal -std=c11
-LD_LIBRARY_PATH += ./bin
 
-INCLUDE = ./src
+INCLUDE = ./include
 BIN = ./bin
+LIB = ./lib
+LD_LIBRARY_PATH += $(LIB)
 
-.PHONY: all clean test lib debug
+SRCS = $(wildcard src/*.c)
+OBJS = $(SRCS:src/%.c=bin/%.o)
 
-all: test/test_all
+TEST_TARGET = test_all
+TEST = ./test
+TEST_OBJS = $(TEST_SRCS:test/%.c=bin/%.o)
+TEST_SRCS = test/test_utils.c
+LINT = clang-format
 
-test: test/test_all
+.PHONY: archive so test debug lint clean clean-objs
+
+##### Library Targets
+
+archive: $(LIB)/$(TARGET).a
+
+so: $(LIB)/$(TARGET).so
+
+$(LIB)/$(TARGET).a: $(OBJS)
+	ar rcs $@ $^
+
+$(LIB)/$(TARGET).so: CFLAGS += -fPIC
+$(LIB)/$(TARGET).so: $(OBJS)
+	$(CC) -shared -o $@ $^
+
+##### Object Targets
+
+bin/%.o: src/%.c
+	$(CC) -c $< -o $@ $(CFLAGS) -I$(INCLUDE)
+
+bin/%.o: test/%.c
+	$(CC) -c $< -o $@ $(CFLAGS) -I$(INCLUDE)
+
+##### Debug Targets
 
 debug: CFLAGS += -g
 debug: all
 
-test/test_all: LDLIBS += -lcheck -lm -lrt -lsubunit -pthread -lcrypto
-test/test_all: CFLAGS += -I$(INCLUDE)
-test/test_all: bin/test_utils.o bin/ll.o bin/dll.o bin/queue.o bin/stack.o \
-bin/pqueue.o bin/bst.o bin/ht.o bin/cll.o bin/wgraph.o
+##### Testing Targets
 
-bin/test_utils.o:
-	gcc -c test/test_utils.c -o bin/test_utils.o $(CFLAGS)
+test: so $(TEST)/$(TEST_TARGET)
 
-bin/ll.o:
-	gcc -c src/ll.c -o bin/ll.o $(CFLAGS)
+$(TEST)/$(TEST_TARGET): LDLIBS += -L$(LIB) -Wl,-rpath=$(LIB) -lcds -lcheck -lm -lrt -lsubunit -pthread -lcrypto
+$(TEST)/$(TEST_TARGET): CFLAGS += -I$(INCLUDE)
+$(TEST)/$(TEST_TARGET): $(TEST_OBJS)
 
-bin/dll.o:
-	gcc -c src/dll.c -o bin/dll.o $(CFLAGS)
+lint:
+	$(LINT) -i $(SRCS) $(TEST_SRCS)
 
-bin/queue.o:
-	gcc -c src/queue.c -o bin/queue.o $(CFLAGS)
+checklint:
+	$(LINT) --dry-run -Werror $(SRCS) $(TEST_SRCS)
 
-bin/stack.o:
-	gcc -c src/stack.c -o bin/stack.o $(CFLAGS)
+##### Cleanup Targets
 
-bin/pqueue.o:
-	gcc -c src/pqueue.c -o bin/pqueue.o $(CFLAGS)
+clean: clean-test
+	$(RM) $(LIB)/*.a *.o *.so $(SRC)/*.o $(BIN)/* 
 
-bin/bst.o:
-	gcc -c src/bst.c -o bin/bst.o $(CFLAGS)
+clean-objs:
+	$(RM) bin/*.o
 
-bin/ht.o:
-	gcc -c src/ht.c -o bin/ht.o $(CFLAGS)
+clean-test:
+	$(RM) $(TEST)/*.o $(TEST)/$(TEST_TARGET)
 
-bin/cll.o:
-	gcc -c src/cll.c -o bin/cll.o $(CFLAGS)
+##### Default Executions
 
-bin/wgraph.o:
-	gcc -c src/wgraph.c -o bin/wgraph.o $(CFLAGS)
-
-clean:
-	$(RM) *.o *.so src/*.o bin/* test/*.o test/test_all
-
-$(shell mkdir -p $(BIN))
+$(shell mkdir -p $(BIN) $(LIB))

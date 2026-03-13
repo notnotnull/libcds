@@ -93,24 +93,17 @@ START_TEST(test_index_pqueue)
 	}
 END_TEST
 
-static TFun pqueue_tests[] = {
-	test_create_pqueue,
-	test_enpqueue,
-	test_depqueue,
-	test_search_pqueue,
-	test_index_pqueue,
-	NULL
-};
-
 Suite *pqueue_st(void)
 {
-	Suite *s = suite_create("DsaPQUEUE");
+	Suite *s = suite_create("Priority Queue");
 
 	TCase *tc = tcase_create("PQUEUE Core");
-	TFun *curr = pqueue_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_create_pqueue);
+	tcase_add_test(tc, test_enpqueue);
+	tcase_add_test(tc, test_depqueue);
+	tcase_add_test(tc, test_search_pqueue);
+	tcase_add_test(tc, test_index_pqueue);
 	suite_add_tcase(s, tc);
 	return s;
 }

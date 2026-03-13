@@ -1,4 +1,5 @@
 bin/*
+lib/*
 src/*.o
 src/*.so
 test/DsaTest
