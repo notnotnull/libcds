@@ -1,4 +1,4 @@
-name: CUnit Test
+name: Check Test
 
 on:
   push:
