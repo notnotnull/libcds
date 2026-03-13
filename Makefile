@@ -35,7 +35,7 @@ bin/%.o: test/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 lint:
-	$(LINT) -i $(SRCS)
+	$(LINT) -i $(SRCS) $(TEST_SRCS)
 
 clean:
 	$(RM) *.o *.so src/*.o bin/* test/*.o test/test_all
