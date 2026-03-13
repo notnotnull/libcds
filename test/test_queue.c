@@ -92,25 +92,18 @@ START_TEST(test_queue_find_at_index)
 	}
 END_TEST
 
-static TFun queue_tests[] = {
-	test_queue_create,
-	test_queue_destroy,
-	test_enqueue,
-	test_dequeue,
-	test_queue_search,
-	test_queue_find_at_index,
-	NULL
-};
-
 Suite *queue_st(void)
 {
-	Suite *s = suite_create("DsaQUEUE");
+	Suite *s = suite_create("Queue");
 
 	TCase *tc = tcase_create("QUEUE Core");
-	TFun *curr = queue_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_queue_create);
+	tcase_add_test(tc, test_queue_destroy);
+	tcase_add_test(tc, test_enqueue);
+	tcase_add_test(tc, test_dequeue);
+	tcase_add_test(tc, test_queue_search);
+	tcase_add_test(tc, test_queue_find_at_index);
 	suite_add_tcase(s, tc);
 	return s;
 }

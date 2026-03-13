@@ -139,29 +139,20 @@ START_TEST(test_ll_delete_node)
 	}
 END_TEST
 
-
-
-static TFun ll_tests[] = {
-	test_ll_create,
-	test_ll_destroy,
-	test_ll_insert_front,
-	test_ll_insert_rear,
-	test_ll_insert_at_pos,
-	test_ll_search,
-	test_ll_insertion_sort, 
-	test_ll_delete_node,
-	NULL
-};
-
 Suite *ll_st(void)
 {
-	Suite *s = suite_create("DsaLL");
+	Suite *s = suite_create("Linked List");
 
 	TCase *tc = tcase_create("LL Core");
-	TFun *curr = ll_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_ll_create);
+	tcase_add_test(tc, test_ll_destroy);
+	tcase_add_test(tc, test_ll_insert_rear);
+	tcase_add_test(tc, test_ll_insert_at_pos);
+	tcase_add_test(tc, test_ll_search);
+	tcase_add_test(tc, test_ll_insertion_sort);
+	tcase_add_test(tc, test_ll_delete_node);
+
 	suite_add_tcase(s, tc);
 	return s;
 }

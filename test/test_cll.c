@@ -187,27 +187,22 @@ START_TEST(test_cll_delete_node)
 	}
 END_TEST
 
-static TFun cll_tests[] = {
-	test_cll_create,
-	test_cll_insert_front,
-	test_cll_insert_rear,
-	test_cll_search,
-	test_sort_cll_int,
-	test_sort_cll,
-	test_cll_empty,
-	test_cll_delete_node,
-	NULL
-};
 
 Suite *cll_st(void)
 {
-	Suite *s = suite_create("DsaCLL");
+	Suite *s = suite_create("Circularly Linked List");
 
 	TCase *tc = tcase_create("CLL Core");
-	TFun *curr = cll_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_cll_create);
+    tcase_add_test(tc, test_cll_insert_front);
+    tcase_add_test(tc, test_cll_insert_rear);
+    tcase_add_test(tc, test_cll_search);
+    tcase_add_test(tc, test_sort_cll_int);
+    tcase_add_test(tc, test_sort_cll);
+    tcase_add_test(tc, test_cll_empty);
+    tcase_add_test(tc, test_cll_delete_node);
+
 	suite_add_tcase(s, tc);
 	return s;
 }

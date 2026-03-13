@@ -86,24 +86,18 @@ START_TEST(test_delete_ht_item)
 	}
 END_TEST
 
-static TFun ht_tests[] = {
-	test_create_ht,
-	test_insert_ht,
-	// test_search_ht,
-	// test_index_ht,
-	// test_delete_ht_item,
-	NULL
-};
-
 Suite *ht_st(void)
 {
-	Suite *s = suite_create("DsaHT");
+	Suite *s = suite_create("Hash Table");
 
 	TCase *tc = tcase_create("HT Core");
-	TFun *curr = ht_tests;
-	while (*curr) {
-		tcase_add_test(tc, *curr++);
-	}
+
+	tcase_add_test(tc, test_create_ht);
+    tcase_add_test(tc, test_insert_ht);
+    // tcase_add_test(tc, test_search_ht);
+    // tcase_add_test(tc, test_index_ht);
+    // tcase_add_test(tc, test_delete_ht_item);
+
 	suite_add_tcase(s, tc);
 	return s;
 }
