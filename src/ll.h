@@ -11,8 +11,6 @@
  * @details Linked List - List ADT of a sequence of data containers where one container points
  * to the next container.
  * 
- * @copyright Copyright (c) 2021
- * 
  */
 
 #include <stddef.h>

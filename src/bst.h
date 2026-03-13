@@ -10,8 +10,6 @@
  * @details Binary Search Tree (BST) - a binary tree with an ordering on node keys such 
  * that for any parent node, it's left child has a lesser key and its right child has a greater key.
  * 
- * @copyright Copyright (c) 2021
- * 
  */
 
 #include <stddef.h>

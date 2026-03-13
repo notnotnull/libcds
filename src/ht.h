@@ -11,8 +11,6 @@
  * @details Hast Table (HT) - A Set ADT implementation with a 1 to 1 mapping of keys and
  * data.
  * 
- * @copyright Copyright (c) 2021
- * 
  */
 
 #include <stddef.h>

@@ -9,9 +9,6 @@
  * 
  * @details Queue - Abstract Data Type where data elements are added and removed 
  * in a First-In-First-Out (FIFO) order.
- * 
- * @copyright Copyright (c) 2021
- * 
  */
 
 #include <stddef.h>
