@@ -3,9 +3,10 @@ TARGET = libcds
 CC = gcc
 CFLAGS += -Wextra -Wpedantic -Waggregate-return -Wwrite-strings -Wvla -Wfloat-equal -std=c11
 
-INCLUDE = ./src
+INCLUDE = ./include
 BIN = ./bin
 LIB = ./lib
+LD_LIBRARY_PATH += $(LIB)
 
 SRCS = $(wildcard src/*.c)
 OBJS = $(SRCS:src/%.c=bin/%.o)
@@ -34,10 +35,10 @@ $(LIB)/$(TARGET).so: $(OBJS)
 ##### Object Targets
 
 bin/%.o: src/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) -I$(INCLUDE)
 
 bin/%.o: test/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) -I$(INCLUDE)
 
 ##### Debug Targets
 
@@ -48,7 +49,7 @@ debug: all
 
 test: lib $(TEST)/$(TEST_TARGET)
 
-$(TEST)/$(TEST_TARGET): LDLIBS += -L$(LIB) -lcds -lcheck -lm -lrt -lsubunit -pthread -lcrypto
+$(TEST)/$(TEST_TARGET): LDLIBS += -L$(LIB) -Wl,-rpath=$(LIB) -lcds -lcheck -lm -lrt -lsubunit -pthread -lcrypto
 $(TEST)/$(TEST_TARGET): CFLAGS += -I$(INCLUDE)
 $(TEST)/$(TEST_TARGET): $(TEST_OBJS)
 
@@ -60,11 +61,14 @@ checklint:
 
 ##### Cleanup Targets
 
-clean:
-	$(RM) $(LIB)/*.a *.o *.so src/*.o bin/* test/*.o test/test_all
+clean: clean-test
+	$(RM) $(LIB)/*.a *.o *.so $(SRC)/*.o $(BIN)/* 
 
 clean-objs:
 	$(RM) bin/*.o
+
+clean-test:
+	$(RM) $(TEST)/*.o $(TEST)/$(TEST_TARGET)
 
 ##### Default Executions
 

@@ -1,7 +1,7 @@
 #include <check.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../src/cll.h"
+#include "cll.h"
 #include "test_utils.h"
 
 const char *alphabet = "ABCDEFGHIJKLMMOPQRSTUVWXYZ";

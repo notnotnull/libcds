@@ -1,7 +1,7 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include "../src/ll.h"
+#include "ll.h"
 #include "test_utils.h"
 
 /* test linked list creation */

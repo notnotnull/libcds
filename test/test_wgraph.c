@@ -1,5 +1,5 @@
 #include <check.h>
-#include "../src/wgraph.h"
+#include "wgraph.h"
 #include "test_utils.h"
 
 /* test weighted graph creation */
