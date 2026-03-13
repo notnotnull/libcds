@@ -1,0 +1,21 @@
+name: Valgrind
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: sudo apt install build-essential valgrind clang-format libssl-dev check
+    - name: make test
+      run: make test
+    - name: valgrind
+      run: valgrind test/test_all
