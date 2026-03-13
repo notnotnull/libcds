@@ -1,6 +1,6 @@
 #include <check.h>
-#include "../src/ll.h"
-#include "../src/dll.h"
+#include "ll.h"
+#include "dll.h"
 #include "test_ll.c"
 #include "test_dll.c"
 #include "test_queue.c"

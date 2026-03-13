@@ -128,7 +128,7 @@ END_TEST
 
 Suite *wgraph_st(void)
 {
-	Suite *s = suite_create("DsaWGRAPH");
+	Suite *s = suite_create("Weighted Graph");
 
 	TCase *tc = tcase_create("WGRAPH Core");
 

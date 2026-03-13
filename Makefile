@@ -1,3 +1,4 @@
+CC = gcc
 CFLAGS += -Wextra -Wpedantic -Waggregate-return -Wwrite-strings -Wvla -Wfloat-equal -std=c11
 LD_LIBRARY_PATH += ./bin
 
@@ -9,9 +10,14 @@ TEST_SRCS = test/test_utils.c
 OBJS = $(SRCS:src/%.c=bin/%.o)
 TEST_OBJS = $(TEST_SRCS:test/%.c=bin/%.o)
 
-.PHONY: all clean test lib debug
+LINT = clang-format
 
-all: test/test_all
+.PHONY: all clean test debug lint
+
+all: lib
+
+lib:
+	@echo "make lib: Not implemented yet."
 
 test: test/test_all
 
@@ -23,10 +29,13 @@ test/test_all: CFLAGS += -I$(INCLUDE)
 test/test_all: $(TEST_OBJS) $(OBJS)
 
 bin/%.o: src/%.c
-	gcc -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 bin/%.o: test/%.c
-	gcc -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+lint:
+	$(LINT) -i $(SRCS)
 
 clean:
 	$(RM) *.o *.so src/*.o bin/* test/*.o test/test_all

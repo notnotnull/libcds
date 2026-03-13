@@ -5,5 +5,9 @@ C Data Structures Library
 ## Dependencies
 
 ```bash
-apt install build-essential check libssl-dev
+apt install build-essential \
+    check \
+    libssl-dev \
+    valgrind \
+    clang-format
 ```
