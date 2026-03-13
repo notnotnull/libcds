@@ -1,0 +1,21 @@
+name: CUnit Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  unit_test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: sudo apt install build-essential libssl-dev check
+    - name: make
+      run: make
+    - name: make test
+      run: test/test_all
