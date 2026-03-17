@@ -4,7 +4,7 @@
 
 C Data Structures Library
 
-## Dependencies
+## Dev Dependencies
 
 ```bash
 apt install build-essential \
